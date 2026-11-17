@@ -7,7 +7,7 @@
  *   updateFermentStatus  — helper: transition batch status
  */
 
-import type { Etzhayyim } from "@etzhayyim/sdk";
+import type { LocalStore } from "../local-store.js";
 import {
   batchDid,
   batchRkey,
@@ -35,7 +35,7 @@ const STATUS_TRANSITIONS: Record<BatchStatus, BatchStatus[]> = {
 };
 
 export async function registerBatch(
-  e: Etzhayyim,
+  e: LocalStore,
   input: RegisterBatchInput
 ): Promise<RegisterBatchOutput> {
   // Validation: required fields
@@ -89,7 +89,7 @@ export async function registerBatch(
 }
 
 export async function getBatch(
-  e: Etzhayyim,
+  e: LocalStore,
   input: GetBatchInput
 ): Promise<GetBatchOutput> {
   if (!input.batchId) {
@@ -115,7 +115,7 @@ export async function getBatch(
 }
 
 export async function listBatches(
-  e: Etzhayyim,
+  e: LocalStore,
   input: ListBatchesInput
 ): Promise<ListBatchesOutput> {
   const resp = await e
@@ -139,7 +139,7 @@ export async function listBatches(
 }
 
 export async function updateFermentStatus(
-  e: Etzhayyim,
+  e: LocalStore,
   input: UpdateBatchStatusInput
 ): Promise<UpdateBatchStatusOutput> {
   // Validation: required fields first

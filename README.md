@@ -1,50 +1,50 @@
-# app-itonami-hakkou
+# app-itonami-hakkou — Hakkou
 
-hakkou (発酵) — fermentation pipeline layer. Accepts raw input, transforms it
-into structured knowledge (ethanol) via LLM, and emits an immutable audit
-trail (CO2). It is the Cloudflare Worker serving `hakkou.itonami.cloud` and
-`h4kk0001.itonami.cloud`.
+発酵 — koke で固定した信号（glucose）を、ki が吸収できる構造化した知識（ethanol）へ不可逆に変える発酵のバッチと工程を記録します。
 
-## Frontend migrated to ClojureScript (2026-09-07)
+Tauri **3.0.0-alpha.6** の独立 app（`tauri-runtime-wry`、OS の WebView）と、同じファイルの static Web ビルドです。記録はすべてこの端末の中（localStorage、key `itonami.hakkou.v1`）に保存し、外部へは通信しません。外部操作の宣言もありません（`dist/descriptor.json` の `operations: []`）。保存に失敗したときは画面に表示します。
 
-The `svelte/` directory (SvelteKit) is gone. The frontend is now
-ClojureScript — reagent + re-frame + `jp-go-dds` (デジタル庁デザインシステム) —
-at [`cljs/`](cljs). This was a **frontend-only** migration; the backend
-Worker/XRPC logic was moved, not rewritten:
+## できること
 
-| Then | Now |
-|---|---|
-| `svelte/src/routes/+page.svelte` (the status page) | [`cljs/src/hakkou/app.cljk`](cljs/src/hakkou/app.cljk) — same fields, faithfully ported |
-| `svelte/src/routes/xrpc/[...path]/+server.ts` (the file that actually deployed, per `wrangler.jsonc`'s old `main`) | [`src/xrpc-dispatcher.ts`](src/xrpc-dispatcher.ts) — moved byte-for-byte, only a provenance header comment added |
-| `wrangler.jsonc` `main: svelte/.svelte-kit/cloudflare/_worker.js` | `main` dropped entirely |
-| `wrangler.jsonc` `assets.directory: ./svelte/.svelte-kit/cloudflare/client` | `assets.directory: ./cljs/public` |
+| 操作 | 内容 |
+| --- | --- |
+| バッチを登録 (registerBatch) | — |
+| バッチを見る (getBatch) | — |
+| バッチ一覧 (listBatches) | — |
+| 発酵の状態を更新 (updateFermentStatus) | — |
+| 発酵を始める (startFerment) | — |
+| 発酵を見る (getFerment) | — |
 
-Neither `src/app.ts` nor the moved `src/xrpc-dispatcher.ts` calls
-`env.ASSETS.fetch`, so `main` was dropped rather than repointed at either —
-putting either Worker in front of the static assets with no
-`env.ASSETS.fetch` call would mean nothing serves the frontend. Both backend
-files are orphaned source, not currently wired to any deploy target. See
-`wrangler.jsonc`'s header comment and `src/xrpc-dispatcher.ts`'s header
-comment for the full reasoning.
+記録（collection）: `cloud.itonami.hakkou.batch`、`cloud.itonami.hakkou.ferment`
 
-**This is unverified**: `wrangler deploy` / `wrangler dev` were not run
-against this change.
+## 補足
 
-Two fields in `cljs/src/hakkou/app.cljk`'s `default-db` were also corrected,
-not merely ported, against what the old Svelte constant held — see that
-namespace's docstring for detail:
+- koke（固定）→ hakkou（発酵）→ ki（吸収）の流れの中段です。各 app は独立していて、app 同士はデータを受け渡しません（それぞれの端末内の記録です）。
+- domain の詳しい説明は [`docs/domain.md`](docs/domain.md)（旧 `kotoba/README.md`）にあります。
 
-- `:app/route-count` / `:app/routes` now report the two route patterns
-  `wrangler.jsonc` actually declares, not the stale `0` / `[]` the Svelte
-  constant carried.
-- `:app/xrpc?` is now `false`, because `main` no longer deploys the XRPC
-  handler (it is preserved, unwired, at `src/xrpc-dispatcher.ts`).
+## 構成
 
-## Build and test
+| パス | 役割 |
+| --- | --- |
+| `src/domain/` | domain logic（TypeScript）。ビルド時に Node の type stripping で JS にします（bundler・依存なし） |
+| `src/local-store.js` | この端末内の record store。domain が使う `read` / `write` を localStorage で実装 |
+| `src/app-def.js` | 画面の操作と domain 関数・collection の対応 |
+| `src/ui/` | 依存なしの UI。DOM はテキストノードだけで組み、HTML 文字列を使いません（CSP `style-src 'self'`） |
+| `vendor/` | kotoba-lang/kotoba の `kotoba-client-runtime.js` / consent CSS と `PINS.json`。`scripts/build.mjs` が digest のずれで失敗します |
+| `src-tauri/` | Tauri v3 host。read-only command は `awai_host_info` の 1 つだけ。filesystem・network・shell・installer 権限なし |
+| `cljs/` | 旧 ClojureScript UI（amu でビルド）。この app のビルド・テストでは使いません |
 
-```bash
-cd cljs
-npm install
-npm run build   # amu compile --target wasm32-browser app -> public/js/app.js
-npm test        # amu compile --target wasm32-browser test && node out/tests.js
+## コマンド
+
+```sh
+npm ci
+npm test              # build してから domain と local-only のテスト（hakkou.test.ts, local-only.test.mjs）
+npm run build         # dist/ と SHA-256 の release.json
+npm run build:desktop # native desktop 実行ファイル（bundle・署名なし）
 ```
+
+## 状態と制限（AWAI-3079, 2026-11-17）
+
+- 旧構成（Cloudflare Worker の XRPC dispatcher / adapter、`wrangler.jsonc`、`@etzhayyim/sdk`）は削除しました。履歴は git にあります。
+- 検証済み: `npm test`、`npm run build`、`cargo check`（Tauri 3.0.0-alpha.6）。
+- 未検証: native window の起動、`tauri build`、Android、署名、配布。アイコンは app-soshiki の仮アイコンです。
