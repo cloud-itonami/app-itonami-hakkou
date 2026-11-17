@@ -13,8 +13,8 @@
   this migration itself changed:
 
   - `:app/route-count` and `:app/routes` now report what `wrangler.jsonc`
-    actually declares (2 route patterns: `h4kk0001.etzhayyim.com/*` and
-    `hakkou.etzhayyim.com/*`), not the stale `0` / `[]` the Svelte
+    actually declares (2 route patterns: `h4kk0001.itonami.cloud/*` and
+    `hakkou.itonami.cloud/*`), not the stale `0` / `[]` the Svelte
     constant carried.
   - `:app/relative-path` now names this file, not the deleted Svelte one.
   - `:app/xrpc?` is now false. This migration's wrangler.jsonc drops
@@ -38,11 +38,11 @@
 
     (require '[jp-go-dds.page :as page] '[clojure.java.io :as io])
     (spit \"public/index.html\"
-          (page/->page {:title \"etzhayyim-project-hakkou\"
+          (page/->page {:title \"itonami-project-hakkou\"
                          :lang \"ja\"
                          :description \"hakkou (発酵) — fermentation pipeline layer appview (reagent + re-frame + jp-go-dds).\"
                          :css (slurp (io/resource \"jp_go_dds/dds.css\"))}
-                        [:div {:id \"app\"} \"etzhayyim-project-hakkou loading…\"]
+                        [:div {:id \"app\"} \"itonami-project-hakkou loading…\"]
                         [:script {:src \"js/app.js\"}]))"
   (:require [reagent.dom :as rdom]
             [re-frame.core :as rf]
@@ -54,12 +54,12 @@
 ;; held (title/project/name/kind/routeCount/routes/vars/xrpc/relativePath).
 
 (def default-db
-  {:app/title "Ai etzhayyim Project Hakkou"
-   :app/project "etzhayyim-project-hakkou"
-   :app/name "etzhayyim-project-hakkou"
+  {:app/title "Ai itonami Project Hakkou"
+   :app/project "itonami-project-hakkou"
+   :app/name "itonami-project-hakkou"
    :app/kind "cloudflare surface"
    :app/route-count 2
-   :app/routes ["h4kk0001.etzhayyim.com/*" "hakkou.etzhayyim.com/*"]
+   :app/routes ["h4kk0001.itonami.cloud/*" "hakkou.itonami.cloud/*"]
    :app/vars ["AGENTGATEWAY_MCP_ROUTER_URL" "APP_CAPABILITIES" "APP_DESCRIPTION"
               "APP_DISPLAY_NAME" "APP_FRAMEWORK" "APP_NANOID" "APP_PERFORMER_TYPE"
               "APP_UI_TYPE"]

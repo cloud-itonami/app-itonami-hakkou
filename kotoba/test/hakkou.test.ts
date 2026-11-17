@@ -11,7 +11,7 @@ describe("hakkou kotoba", () => {
   let e: any;
 
   beforeEach(() => {
-    e = new MockEtzhayyim({ did: "did:web:hakkou.etzhayyim.com" });
+    e = new MockEtzhayyim({ did: "did:web:hakkou.itonami.cloud" });
   });
 
   describe("registerBatch", () => {

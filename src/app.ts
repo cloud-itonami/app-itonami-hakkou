@@ -1,4 +1,4 @@
-// hakkou.etzhayyim.com — fermentation pipeline layer (hakkou = 発酵)
+// hakkou.itonami.cloud — fermentation pipeline layer (hakkou = 発酵)
 // Thin-edge dispatcher: business logic in AgentGateway MCP + pod-side LangServer.
 // 2 methods: startFerment / getFerment
 
@@ -10,8 +10,8 @@ interface Env {
 }
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
-const NSID_PREFIX = "com.etzhayyim.hakkou.";
-const ACTOR_DID = "did:web:hakkou.etzhayyim.com";
+const NSID_PREFIX = "cloud.itonami.hakkou.";
+const ACTOR_DID = "did:web:hakkou.itonami.cloud";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -52,7 +52,7 @@ async function bodyWithQuery(req: Request, url: URL): Promise<Record<string, unk
 }
 
 async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> {
-  const dispatcherUrl = env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com";
+  const dispatcherUrl = env.DISPATCHER_URL ?? "https://dispatcher.itonami.cloud";
   const secret = typeof env.DISPATCHER_INTERNAL_SECRET === "object"
     ? await env.DISPATCHER_INTERNAL_SECRET.get()
     : (env.DISPATCHER_INTERNAL_SECRET ?? "");

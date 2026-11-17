@@ -24,7 +24,7 @@ import {
   type UpdateFermentStatusOutput,
 } from "./types.js";
 
-const FERMENT_COLLECTION = "com.etzhayyim.hakkou.ferment";
+const FERMENT_COLLECTION = "cloud.itonami.hakkou.ferment";
 
 export async function startFerment(
   e: Etzhayyim,

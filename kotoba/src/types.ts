@@ -10,11 +10,11 @@
  *   koke (fixSignal)  →  hakkou (startFerment)  →  ki (absorb)
  *
  * Identity hierarchy:
- *   did:web:hakkou.etzhayyim.com                                — controller
- *   did:web:hakkou.etzhayyim.com:ferment:{fermentId-slug}       — FermentRun
+ *   did:web:hakkou.itonami.cloud                                — controller
+ *   did:web:hakkou.itonami.cloud:ferment:{fermentId-slug}       — FermentRun
  */
 
-export const HAKKOU_DID_PREFIX = "did:web:hakkou.etzhayyim.com:" as const;
+export const HAKKOU_DID_PREFIX = "did:web:hakkou.itonami.cloud:" as const;
 
 export type FermentInputKind = "text" | "record" | "stream";
 
@@ -171,7 +171,7 @@ export interface UpdateBatchStatusOutput {
 }
 
 export function batchDid(batchId: string): string {
-  return `did:web:hakkou.etzhayyim.com:batch:${idSlug(batchId)}`;
+  return `did:web:hakkou.itonami.cloud:batch:${idSlug(batchId)}`;
 }
 
 export function batchRkey(batchId: string): string {

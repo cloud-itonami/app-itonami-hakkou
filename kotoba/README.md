@@ -1,6 +1,6 @@
 # hakkou kotoba
 
-Phase E Option B reference implementation of hakkou (発酵 / fermentation) on the etzhayyim substrate.
+Phase E Option B reference implementation of hakkou (発酵 / fermentation) on the itonami substrate.
 
 Per [ADR-2605203000](../../../90-docs/adr/2605203000-kotoba-write-target-options.md), hakkou migrates from vendor's `createKyselyDb` + BPMN ferment-pipeline.bpmn to **Option B** — PDS XRPC writes via `@etzhayyim/sdk e.write()`.
 
@@ -29,7 +29,7 @@ Each transition is driven by the LangServer pod via `updateFermentStatus`.
 ## Authority-chain DIDs
 
 ```
-did:web:hakkou.etzhayyim.com:ferment:{fermentId-slug}
+did:web:hakkou.itonami.cloud:ferment:{fermentId-slug}
 ```
 
 ## Sibling reference impls (10 actors)
