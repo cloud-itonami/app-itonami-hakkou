@@ -1,9 +1,9 @@
-# com-etzhayyim-app-hakkou
+# app-itonami-hakkou
 
 hakkou (発酵) — fermentation pipeline layer. Accepts raw input, transforms it
 into structured knowledge (ethanol) via LLM, and emits an immutable audit
-trail (CO2). It is the Cloudflare Worker serving `hakkou.etzhayyim.com` and
-`h4kk0001.etzhayyim.com`.
+trail (CO2). It is the Cloudflare Worker serving `hakkou.itonami.cloud` and
+`h4kk0001.itonami.cloud`.
 
 ## Frontend migrated to ClojureScript (2026-09-07)
 

@@ -1,6 +1,6 @@
 {
-  "@context": "https://etzhayyim.com/ns/kotodama/v1",
-  "@id": "did:web:hakkou.etzhayyim.com",
+  "@context": "https://itonami.cloud/ns/kotodama/v1",
+  "@id": "did:web:hakkou.itonami.cloud",
   "name": "hakkou",
   "nanoid": "h4kk0001",
   "project": "hakkou",
@@ -14,7 +14,7 @@
     "avatar": "醗",
     "isBot": true,
     "agentType": "autonomous",
-    "operator": "etzhayyim",
+    "operator": "itonami",
     "capabilities": ["fermentation-pipeline", "knowledge-transformation", "audit-co2-trail"],
     "protocols": ["xrpc", "mcp"]
   },
@@ -24,7 +24,7 @@
   },
   "triggers": {
     "subscribeRepos": {
-      "collections": ["com.etzhayyim.hakkou.ferment"]
+      "collections": ["cloud.itonami.hakkou.ferment"]
     }
   }
 }

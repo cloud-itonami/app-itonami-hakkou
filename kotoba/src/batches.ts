@@ -24,7 +24,7 @@ import {
   type UpdateBatchStatusOutput,
 } from "./types.js";
 
-const BATCH_COLLECTION = "com.etzhayyim.hakkou.batch";
+const BATCH_COLLECTION = "cloud.itonami.hakkou.batch";
 
 const VALID_STATUSES: BatchStatus[] = ["pending", "running", "done", "failed"];
 const STATUS_TRANSITIONS: Record<BatchStatus, BatchStatus[]> = {

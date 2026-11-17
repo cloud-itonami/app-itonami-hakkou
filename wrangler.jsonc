@@ -30,7 +30,7 @@
     "APP_NANOID": "h4kk0001",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "yoro",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.itonami.cloud/xrpc/cloud.itonami.mcp.message"
   },
   "rules": [
     {
@@ -42,12 +42,12 @@
   ],
   "routes": [
     {
-      "pattern": "h4kk0001.etzhayyim.com/*",
-      "zone_name": "etzhayyim.com"
+      "pattern": "h4kk0001.itonami.cloud/*",
+      "zone_name": "itonami.cloud"
     },
     {
-      "pattern": "hakkou.etzhayyim.com/*",
-      "zone_name": "etzhayyim.com"
+      "pattern": "hakkou.itonami.cloud/*",
+      "zone_name": "itonami.cloud"
     }
   ],
   "assets": {
