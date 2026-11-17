@@ -10,7 +10,7 @@
  * updateFermentStatus after each phase of the ferment pipeline.
  */
 
-import type { Etzhayyim } from "@etzhayyim/sdk";
+import type { LocalStore } from "../local-store.js";
 import {
   fermentDid,
   fermentRkey,
@@ -27,7 +27,7 @@ import {
 const FERMENT_COLLECTION = "cloud.itonami.hakkou.ferment";
 
 export async function startFerment(
-  e: Etzhayyim,
+  e: LocalStore,
   input: StartFermentInput
 ): Promise<StartFermentOutput> {
   if (
@@ -79,7 +79,7 @@ export async function startFerment(
 }
 
 export async function getFerment(
-  e: Etzhayyim,
+  e: LocalStore,
   input: GetFermentInput
 ): Promise<GetFermentOutput> {
   if (!input.fermentId) return { error: "missingFermentId" };
@@ -100,7 +100,7 @@ export async function getFerment(
 }
 
 export async function updateFermentStatus(
-  e: Etzhayyim,
+  e: LocalStore,
   input: UpdateFermentStatusInput
 ): Promise<UpdateFermentStatusOutput> {
   if (!input.fermentId || !input.status) {

@@ -1,17 +1,18 @@
-import { describe, it, expect, beforeEach } from "vitest";
-import { MockEtzhayyim } from "@etzhayyim/sdk-mock";
+import { describe, it, beforeEach } from "node:test";
+import { expect } from "./expect.mjs";
+import { LocalStore } from "../dist/local-store.js";
 import {
   registerBatch,
   updateFermentStatus,
   getBatch,
   listBatches,
-} from "../src/index.js";
+} from "../dist/domain/index.js";
 
 describe("hakkou kotoba", () => {
   let e: any;
 
   beforeEach(() => {
-    e = new MockEtzhayyim({ did: "did:web:hakkou.itonami.cloud" });
+    e = new LocalStore({ did: "did:web:hakkou.itonami.cloud" });
   });
 
   describe("registerBatch", () => {
